@@ -5,8 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                    <a href="{{ route('home') }}">
+                        <img src="/img/logo.png" alt="" width="50px">
                     </a>
                 </div>
 
@@ -15,6 +15,24 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('home') }}">
+                        {{ __('Pagina Inicial') }}
+                    </x-jet-nav-link>
+                    @if (auth()->user()->admin)
+                        <x-jet-nav-link href="{{ route('produto') }}">
+                            {{ __('Produtos') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('categoria') }}">
+                            {{ __('Categorias') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('usuario') }}">
+                            {{ __('Usuarios') }}
+                        </x-jet-nav-link>
+                    @else
+                        
+                    @endif
+                    
+                    
                 </div>
             </div>
 
@@ -99,6 +117,9 @@
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('endereco') }}">
+                                {{ __('Endereço') }}
+                            </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -161,7 +182,7 @@
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
-                </x-jet-responsive-nav-link>
+                </x-jet-responsive-nav-link>                          
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
