@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index($id = 0){
 
         $search = request('search');
 
@@ -18,9 +19,12 @@ class HomeController extends Controller
         }else{
             $products = Product::all();
         }
-
         
-
-        return view('home', ['products' => $products, 'search' => $search]);
+            $cart = session('cart', []);
+        
+        
+        
+        return view('home', ['products' => $products, 'search' => $search, 'cart'=>$cart]);
     }
+      
 }

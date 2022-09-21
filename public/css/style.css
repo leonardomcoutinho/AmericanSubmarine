@@ -2,3 +2,9 @@
     max-height: 300px;
     max-width: 300px;
 }
+.search-div{
+    width: 60%;
+}
+.cart-div{
+    width: 20%;
+}

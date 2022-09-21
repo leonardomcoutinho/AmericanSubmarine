@@ -35,13 +35,22 @@ Route::middleware(['admin'])->group(function () {
     Route::match(['get', 'post'], '/editar/categoria/{id}', [CategoryController::class, 'edit'])->name("edit_categoria");
     Route::put('/editar/categoria/{id}', [CategoryController::class, 'update']);
     Route::delete('/deletar/categoria/{id}', [CategoryController::class, 'destroy']);
-    
 });
 
 Route::middleware(['cliente'])->group(function () {
     Route::match(['get', 'post'], '/endereco', [AddressController::class, 'endereco'])->name("endereco");
     Route::match(['get', 'post'], '/endereco/edit/{id}', [AddressController::class, 'edit'])->name("enderecoEdit");
     Route::put('/endereco/update/{id}', [AddressController::class, 'update']);
+
+
+    Route::match(['get', 'post'], '/addCart/{id}', [ProductController::class, 'addCart'])->name("addcart");
+    Route::match(['get', 'post'], '/carrinho', [ProductController::class, 'cart'])->name("carrinho");
+    Route::match(['get', 'post'], '/carrinho/delete/{indece}', [ProductController::class, 'cartDelete'])->name("cart_delete");
+    Route::post('/carrinho/finalizar', [ProductController::class, 'cartFinalizar'])->name("cart_finalizar");
+    Route::post('/carrinho/pagar', [ProductController::class, 'pagar'])->name("pagar");
+    Route::match(['get', 'post'], '/compras/historico', [ProductController::class, 'historico'])->name("historico");
+    Route::match(['get', 'post'], '/compras/detalhes', [ProductController::class, 'detalhes'])->name("detalhes");
+    
 });
 
 
@@ -54,9 +63,9 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        
-        
+
+
         $users = User::all();
-        return view('dashboard', ['users'=>$users]);
+        return view('dashboard', ['users' => $users]);
     })->name('dashboard');
 });
