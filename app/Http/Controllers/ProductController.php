@@ -8,16 +8,11 @@ use App\Models\Product;
 use App\Services\VendaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
+class ProductController extends Controller {
 
-class ProductController extends Controller
-{
-
-    private $_configs;
-    public function __construct()
-    {
-        $this->_configs = new Configure();
-    }
+    
     public function produto()
     {
         $products = Product::all();
@@ -121,32 +116,5 @@ class ProductController extends Controller
         session(['cart' => $cart]);
         return redirect()->route('home');
     }  
-    public function cartFinalizar(Request $request){
-        $prods = session('cart', []);
-        $vendaService = new VendaService;
-        $result = $vendaService->finalizarVenda($prods, Auth::user());
-        
-        if($result['status']=== 'success'){
-            $request->session()->forget('cart');
-        }
-        return redirect()->route('home')->with('success', 'compra finalizada');
-
-    }  
-    public function historico()
-    {
-       $data = [];
-       $iduser = Auth::user()->id;
-
-       $listapedido = Pedido::where('user_id', $iduser)->orderBy('datapedido', 'desc')->get();
-
-       $data['lista'] = $listapedido;
-
-       return view('compra.historico', $data);
-    }
-    public function pagar(Request $request){
-        $data = [];
-
-        return view('compra.pagar', $data);
-
-    }
+    
 }

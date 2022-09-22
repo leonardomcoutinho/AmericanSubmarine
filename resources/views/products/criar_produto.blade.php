@@ -1,8 +1,9 @@
 @extends('layouts.main')
 @section('title', 'Criar Produto')
 @section('content')
-<div class="container">
-    <form action="{{route('store_product')}}" method="POST" enctype="multipart/form-data">
+<div class="container my-3">
+  <div class="cadastrar border bg-light rounded">
+    <form action="{{route('store_product')}}" method="POST" class="m-3" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="image" class="form-label">Imagem do Produto:</label>
@@ -23,7 +24,7 @@
               <label for="category_id">Selecione a categoria</label>              
           </div>
           <div class="d-flex justify-content-center align-items-center mx-2">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
               <i class="bi bi-plus-lg"></i>
             </button>            
           </div>
@@ -36,8 +37,9 @@
           <label for="description" class="form-label">Descrição do produto:</label>
           <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>                    
         </div>                
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-    </form>    
+        <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+    </form>
+  </div> 
 </div>
 
 

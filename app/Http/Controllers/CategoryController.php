@@ -25,7 +25,7 @@ class CategoryController extends Controller
 
         $cat->save();
 
-        return redirect()->route('criar_produto')->with('success', 'Categoria criada com sucesso!');
+        return redirect()->route('categoria')->with('success', 'Categoria criada com sucesso!');
     }
     public function edit($id){
         $categories = Category::findOrFail($id);

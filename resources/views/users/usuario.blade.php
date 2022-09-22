@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Criar Categoria')
+@section('title', 'Usuarios')
 @section('content')
 
 <div class="container">     
@@ -8,9 +8,7 @@
             <div class="title">
                 <h4 class="fs-3">Usuarios</h4>
             </div>
-            <div class="create">
-                <a href="{{ route('criar_produto')}}" class="btn btn-success"><i class="bi bi-plus-lg"></i></a>
-            </div>
+            
         </div>         
         <table class="table">
             <thead>

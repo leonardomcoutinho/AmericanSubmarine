@@ -32,10 +32,15 @@ class VendaService{
                 $itens->dataitem = $dtHoje->format("Y-m-d H:i:s");
                 $itens->product_id = $p->id;
                 $itens->pedido_id = $pedido->id;                
-                $itens->save();                
-            }           
+                $itens->save();                            
+            }
             DB::commit();
-            return ['status' =>'success','message' => 'Venda finalizada com sucesso!'];
+            
+            return [
+                'status' =>'success',
+                'message' => 'Venda finalizada com sucesso!', 
+                'pedido' => $pedido         
+            ];
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("ERRO:VENDA SERVICE", ['message' => $e->getMessage()]);

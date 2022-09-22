@@ -1,47 +1,76 @@
 @extends('layouts.main')
 @section('title', 'American Submarine')
-@section('scriptjs')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-@endsection
 @section('content')
-<form action="">
-    @csrf
-    <div class="row">
-        <div class="col-4">
-            Cartão de Crédito:
-            <input type="text" name="ncredito" class="ncredito form-control">
-        </div>
-        <div class="col-4">
-            CVV:
-            <input type="text" name="ncvv" class="ncvv form-control">
-        </div>
-        <div class="col-4">
-            Mês de expiração:
-            <input type="text" name="mesexp" class="mesexp form-control">
-        </div>
-        <div class="col-4">
-            Ano de expiração:
-            <input type="text" name="anoexp" class="anoexp form-control">
-        </div>
-        <div class="col-4">
-            Nome no cartão:
-            <input type="text" name="nomecartao" class="nomecartao form-control">
-        </div>
-        <div class="col-4">
-            Parcelas:
-            <input type="text" name="nparcela" class="nparcela form-control">
-        </div>
-        <div class="col-4">
-            Valor total:
-            <input type="text" name="totalfinal" class="totalfinal form-control">
-        </div>
-        <div class="col-4">
-            Valor da parcela:
-            <input type="text" name="totalparcelado" class="totalparcelado form-control">
-        </div>
+
+@php
+    // SDK do Mercado Pago
+    require base_path('vendor/autoload.php');
+    // Adicione as credenciais
+    MercadoPago\SDK::setAccessToken(config('services.mercadopago.token'));
+
+    $preference = new MercadoPago\Preference();
+    $total = 0;
+    foreach ($cart as $ccc) {
+        $total += $ccc->price;      
+        $item = new MercadoPago\Item();
+        $item->title = $ccc->title;
+        $item->quantity = 1;
+        $item->unit_price = $total;          
+    }
+    // Cria um item na preferência
+    $preference->back_urls = array(
+        "success"=> route('pagamento'),
+        "failure"=> "http://www.failure.com",
+        "pending"=> "http://www.pending.com"
+    );
+    $preference->auto_return = "approved";
+
+    $preference->items = array($item);
+    $preference->save();
+@endphp
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            
+            <th scope="col">Produto</th>
+            <th scope="col">Descricão</th>
+            <th scope="col">Preço</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach ($cart as $cc)
+            <tr>            
+                <td><img src="{{$cc->image}}" alt="" width="50px"></td>                
+                <td>{{$cc->title}}</td>
+                <td>{{$cc->description}}</td>
+                <td>{{$cc->price}}</td>              
+            </tr>
+            @endforeach
         
-    </div>
-    <input type="button" value="Pagar" class="btn btn-success pagar">
-</form>
+        
+    </table>
+    <div class="cho-container"></div>
+</div>
+
+{{-- SDK MercadoPago.js V2 --}}
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+    
+    
+<script>
+    const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
+        locale: 'pt-BR'
+    });
+
+    mp.checkout({
+        preference: {
+        id: '{{ $preference->id }}'
+        },
+        render: {
+        container: '.cho-container',
+        label: 'Pagar',
+        }
+    });
+</script>
 @endsection       

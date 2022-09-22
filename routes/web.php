@@ -3,8 +3,10 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebhooksController;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
@@ -46,10 +48,21 @@ Route::middleware(['cliente'])->group(function () {
     Route::match(['get', 'post'], '/addCart/{id}', [ProductController::class, 'addCart'])->name("addcart");
     Route::match(['get', 'post'], '/carrinho', [ProductController::class, 'cart'])->name("carrinho");
     Route::match(['get', 'post'], '/carrinho/delete/{indece}', [ProductController::class, 'cartDelete'])->name("cart_delete");
-    Route::post('/carrinho/finalizar', [ProductController::class, 'cartFinalizar'])->name("cart_finalizar");
-    Route::post('/carrinho/pagar', [ProductController::class, 'pagar'])->name("pagar");
-    Route::match(['get', 'post'], '/compras/historico', [ProductController::class, 'historico'])->name("historico");
-    Route::match(['get', 'post'], '/compras/detalhes', [ProductController::class, 'detalhes'])->name("detalhes");
+
+
+
+    Route::post('/pedido/finalizar', [PedidoController::class, 'cartFinalizar'])->name("cart_finalizar");
+    Route::match(['get', 'post'], '/pedido/pagar', [PedidoController::class, 'pagar'])->name("pagar");
+
+
+    Route::match(['get', 'post'], '/pedido/finalizado/{id}', [PedidoController::class, 'show'])->name("show");
+
+
+    Route::match(['get', 'post'], '/compras/historico', [PedidoController::class, 'historico'])->name("historico");   
+   
+    Route::match(['get', 'post'], '/compra/{id}/pagamento', [PedidoController::class, 'pagamento'])->name("pagamento");
+
+    Route::post('/webhooks', WebhooksController::class);
     
 });
 

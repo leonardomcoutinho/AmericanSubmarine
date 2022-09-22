@@ -1,38 +1,80 @@
 @extends('layouts.main')
 @section('title', 'American Submarine')
 @section('content')
-<div class="search bg-light py-3">
-    <div class="container d-flex justify-content-center align-items-center">
-      <form class="w-100" role="search" action="/" method="GET">               
-        <div class="input-group mb-3">
-            <input type="search" class="form-control rounded-start" name="search" placeholder="Procurar produto">
-            <button class="input-group-text btn btn-success" id="search"><i class="bi bi-search"></i></button>
-        </div>                                 
-      </form>      
-    </div>    
-</div>
-<div class="d-flex justify-content-end align-items-center m-3">
-    <button type="button" class="btn btn-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <i class="bi bi-cart3"></i>- Ver Carrinho 
-        <div class="notification">         
-            @if (count($cart) > 0)
-            <span class="btn btn-danger btn-sm rounded-circle">
-             {{count($cart)}}
-            </span> 
-            @endif              
+<div class="d-flex justify-content-between align-items-center m-3">
+        <div class="search">
+            <form class="w-100" role="search" action="/" method="GET">               
+            <div class="input-group">
+                <input type="search" class=" pesquisar rounded-start" name="search" placeholder="Pesquisar produto">
+                <button class="input-group-text btn btn-outline-dark" id="search"><i class="bi bi-search"></i></button>
+            </div>                                 
+            </form>      
+        </div> 
+        <div class="botao">
+        <button type="button" class="btn btn-outline-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="bi bi-cart3"></i>- Ver Carrinho
+            <div class="notification">         
+                @if (count($cart) > 0)
+                <div class="text-danger">
+                 {{count($cart)}}
+                </div>
+                @endif              
+            </div>
+        </button>
         </div>
-    </button>
 </div>
-<div class="container d-flex flex-wrap gap-5">
+<div class="container d-flex flex-wrap gap-3">
+
+    <h3 class="w-100 border-bottom">Sanduiches</h3>    
     @foreach ($products as $product)
-        <div class="card" style="width: 18rem;">        
-            <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">{{$product->title}}</h5>
-            <p class="card-text">{{$product->description}}</p>
-            <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-primary">Adicionar</a>
-            </div>        
-        </div>
+        @if (isset($product->category_id) && $product->category_id == 1)
+            <div class="card d-flex flex-column bg-light">   
+                <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{$product->title}}</h5>
+                    <p class="card-text m-1">{{$product->description}}</p>
+                    
+                </div> 
+                <div class="m-2 d-flex justify-content-between align-items-center border-top">
+                    <span class="text-dark" >R$: {{$product->price}}</span>
+                    <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
+                </div>       
+            </div>
+        @endif        
+    @endforeach
+    <h3 class="w-100 border-bottom">Bebidas</h3>
+    @foreach ($products as $product)
+        @if (isset($product->category_id) && $product->category_id == 2)
+            <div class="card d-flex flex-column bg-light">   
+                <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{$product->title}}</h5>
+                    <p class="card-text m-1">{{$product->description}}</p>
+                    
+                </div> 
+                <div class="m-2 d-flex justify-content-between align-items-center border-top">
+                    <span class="text-dark" >R$: {{$product->price}}</span>
+                    <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
+                </div>       
+            </div>
+        @endif        
+    @endforeach
+    <h3 class="w-100 border-bottom">Outros</h3>
+    @foreach ($products as $product)
+        @if (isset($product->category_id) && $product->category_id > 2)
+            <div class="card d-flex flex-column bg-light">   
+                <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{$product->title}}</h5>
+                    <p class="card-text m-1">{{$product->description}}</p>
+                    
+                </div> 
+                <div class="m-2 d-flex justify-content-between align-items-center border-top">
+                    <span class="text-dark" >R$: {{$product->price}}</span>
+                    <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
+                </div>       
+            </div>
+        @endif        
     @endforeach
 </div>
    
@@ -92,11 +134,13 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <form action="{{route('pagar')}}" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-success">Finalizar compra</button>
+                <button type="submit" class="btn btn-success">Finalizar compra</button>               
             </form>
             
             </div>
         </div>
         </div>
     </div>
+    
+
 @endsection       
