@@ -29,48 +29,49 @@ $preference->save();
 @endphp
 <div class="container my-3">
     <div class="cadastrar border bg-light rounded">
-        '<table class="table">
-            <thead>
-            <tr>
-                
-                <th scope="col">Produto</th>
-                <th scope="col">Qtd</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Data</th>
-            </tr>
-            </thead>
-            <tbody>
-                @php
-                    $total = 0;
-                @endphp
-                @foreach ($itensPedido as $cc)
-                    <tr>            
-                        <td>
-                            @foreach ($product as $p)
-                                @if ($p->id == $cc->product_id)
-                                    {{$p->title}}
-                                @endif
-                            @endforeach
-                        </td>             
-                        <td>{{$cc->quantidade}}</td>
-                        <td>{{$cc->valor}}</td>
-                        <td>{{$cc->dataitem}}</td>                 
-                    </tr>
-                    @php
-                        $total += $cc->valor;
-                    @endphp
-                @endforeach
-            </tbody>
-            <tfoot>
+        <div class="m-3">
+            '<table class="table">
+                <thead>
                 <tr>
-                    <td colspan="5">
-                        <strong>Total do carrinho: R$ {{$total}}</strong> 
-                    </td>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Qtd</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Data</th>
                 </tr>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
+                    @php
+                        $total = 0;                        
+                    @endphp
+                    @foreach ($itensPedido as $cc)
+                        <tr>            
+                            <td>
+                                @foreach ($product as $p)
+                                    @if ($p->id == $cc->product_id)
+                                        {{$p->title}}
+                                    @endif
+                                @endforeach
+                            </td>             
+                            <td>{{$cc->quantidade}}</td>
+                            <td>{{$cc->valor}}</td>
+                            <td>{{$cc->dataitem}}</td>                 
+                        </tr>
+                        @php
+                            $total += $cc->valor;
+                        @endphp
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <strong>Total do carrinho: R$ {{$total}}</strong> 
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
 
-        <div class="cho-container"></div>
+            <div class="cho-container"></div>
+        </div>
     </div>
 </div>
 

@@ -228,9 +228,6 @@
       </nav>          
 </header>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    
-
-    <!-- Responsive Navigation Menu -->
     
 </nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>

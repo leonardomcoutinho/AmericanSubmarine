@@ -28,7 +28,7 @@
     <h3 class="w-100 border-bottom">Sanduiches</h3>    
     @foreach ($products as $product)
         @if (isset($product->category_id) && $product->category_id == 1)
-            <div class="card d-flex flex-column bg-light">   
+            <div class="card card-home d-flex flex-column bg-light">   
                 <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$product->title}}</h5>
@@ -45,7 +45,7 @@
     <h3 class="w-100 border-bottom">Bebidas</h3>
     @foreach ($products as $product)
         @if (isset($product->category_id) && $product->category_id == 2)
-            <div class="card d-flex flex-column bg-light">   
+            <div class="card card-home d-flex flex-column bg-light">   
                 <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$product->title}}</h5>
@@ -62,7 +62,7 @@
     <h3 class="w-100 border-bottom">Outros</h3>
     @foreach ($products as $product)
         @if (isset($product->category_id) && $product->category_id > 2)
-            <div class="card d-flex flex-column bg-light">   
+            <div class="card card-home d-flex flex-column bg-light">   
                 <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$product->title}}</h5>

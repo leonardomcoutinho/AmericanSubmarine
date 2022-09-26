@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-
-
 Route::middleware(['admin'])->group(function () {
     Route::match(['get', 'post'], '/usuarios', [UserController::class, 'usuarios'])->name("usuario");
 
@@ -31,12 +29,14 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('/deletar/produto/{id}', [ProductController::class, 'destroy']);
 
 
-    Route::match(['get', 'post'], '/categorias', [CategoryController::class, 'categoria'])->name("categoria");
-    Route::match(['get', 'post'], '/criar_categoria', [CategoryController::class, 'create'])->name("criar_categoria");
+    Route::match(['get', 'post'], '/categorias', [CategoryController::class, 'categoria'])->name("categoria");    
     Route::match(['get', 'post'], '/store_cat', [CategoryController::class, 'store'])->name("store_cat");
     Route::match(['get', 'post'], '/editar/categoria/{id}', [CategoryController::class, 'edit'])->name("edit_categoria");
     Route::put('/editar/categoria/{id}', [CategoryController::class, 'update']);
     Route::delete('/deletar/categoria/{id}', [CategoryController::class, 'destroy']);
+
+    Route::get('/pedidos',[PedidoController::class, 'pedidos'])->name('pedidos');
+    Route::get('/pedidos/{id}',[PedidoController::class, 'verPedido'])->name('ver_pedido');
 });
 
 Route::middleware(['cliente'])->group(function () {
@@ -49,18 +49,10 @@ Route::middleware(['cliente'])->group(function () {
     Route::match(['get', 'post'], '/carrinho', [ProductController::class, 'cart'])->name("carrinho");
     Route::match(['get', 'post'], '/carrinho/delete/{indece}', [ProductController::class, 'cartDelete'])->name("cart_delete");
 
-
-
-    Route::post('/pedido/finalizar', [PedidoController::class, 'cartFinalizar'])->name("cart_finalizar");
     Route::match(['get', 'post'], '/pedido/pagar', [PedidoController::class, 'pagar'])->name("pagar");
-
-
     Route::match(['get', 'post'], '/pedido/finalizado/{id}', [PedidoController::class, 'show'])->name("show");
-
-
-    Route::match(['get', 'post'], '/compras/historico', [PedidoController::class, 'historico'])->name("historico");   
-   
     Route::match(['get', 'post'], '/compra/{id}/pagamento', [PedidoController::class, 'pagamento'])->name("pagamento");
+    Route::match(['get', 'post'], '/pedido/{id}', [PedidoController::class, 'meuPedido'])->name("meu_pedido");
 
     Route::post('/webhooks', WebhooksController::class);
     

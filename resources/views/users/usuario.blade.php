@@ -17,9 +17,7 @@
                 <th scope="col">Nome</th>                    
                 <th scope="col">Email</th>                    
                 <th scope="col">Endereço</th>                    
-                <th scope="col">Data Criação</th>                    
-                <th scope="col">Editar</th>                    
-                <th scope="col">Excluir</th>                    
+                <th scope="col">Data Criação</th>                  
             </tr>
             </thead>
             <tbody>
@@ -30,8 +28,6 @@
                     <td>{{$u->email}}</td>
                     <td>{{$u->logradouro}}, {{$u->numero}}, {{$u->complemento}}, {{$u->bairro}}, {{$u->cidade}}/{{$u->estado}}</td>
                     <td>{{$u->created_at}}</td>
-                    <td><a href="/editar/categoria/{{$u->id}}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a></td>
-                    <td><a href="" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a></td>                
                 </tr>
             @endforeach
             </tbody>

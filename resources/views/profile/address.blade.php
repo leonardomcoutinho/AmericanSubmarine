@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Endereço')
 @section('content')
-<div class="container">
+<div class="container my-3">
     <table class="table">
         <thead>
           <tr>

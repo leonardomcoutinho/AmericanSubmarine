@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Pedido extends Model
 {
@@ -16,13 +17,8 @@ class Pedido extends Model
         'user_id'
     ];
 
-    public function statusDesc(){
-        $desc= "";
-        switch($this->status){
-            case 'PEN': $desc = "PENDENTE";break;
-            case 'APR': $desc = "APROVADO";break;
-            case 'CAN': $desc = "CANCELADO";break;
-        }
-        return $desc;
+    public function user(){
+        return $this->belongsTo(User::class);
     }
+
 }

@@ -7,30 +7,13 @@ use App\Models\Pedido;
 use App\Models\Product;
 use App\Models\User;
 use App\Services\VendaService;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+
 
 class PedidoController extends Controller
 {
-    public function cartFinalizar(Request $request)
-    {
-        
-    }
-    public function historico()
-    {
-        $data = [];
-        $iduser = Auth::user()->id;
-
-        $listapedido = Pedido::where('user_id', $iduser)->orderBy('datapedido', 'desc')->get();
-
-        $data['lista'] = $listapedido;
-
-        return view('compra.historico', $data);
-    }
     public function pagar(Request $request)
     {
     
@@ -58,13 +41,30 @@ class PedidoController extends Controller
         $response = Http::get("https://api.mercadopago.com/v1/payments/$pag_id" . "?access_token=APP_USR-4591325151639720-092107-3630e2b47dc2c66a087d25eefb7cb81b-1202337220");
 
         $response = json_decode($response);
-        $status = $response->status;
-        $dtHoje = new DateTime;
+        $status = $response->status;        
         if ($status == "approved") {            
             $pedido->status = "APROVADO";
             $pedido->update();
-            return redirect()->route('home',['status'=>$status])->with('success','Compra finalizada');
+            return redirect()->route('meu_pedido', $pedido->id)->with('success',"Pedido $pedido->id finalizado com sucess!");
         }
-            
+
+    }
+    public function meuPedido($id){
+        $pedido = Pedido::findOrFail($id);
+        $itensPedido = ItensPedido::where('pedido_id', $pedido->id)->get();         
+        $produto = Product::all();
+
+        return view('compra.meu_pedido', ['pedido'=>$pedido, 'itensPedido'=>$itensPedido, 'produto'=>$produto]);
+    }
+    public function pedidos(){
+        $pedido = Pedido::orderBy('id','desc')->get();              
+             
+        return view('pedido.pedidos',['pedido' => $pedido]);
+    }
+    public function verPedido($id){
+        $pedido = Pedido::findOrFail($id);
+        $itensPedido = ItensPedido::where('pedido_id', $pedido->id)->get();         
+        $produto = Product::all();
+        return view('pedido.ver_pedido', ['pedido'=>$pedido, 'itensPedido'=>$itensPedido, 'produto'=>$produto]);
     }
 }

@@ -35,6 +35,9 @@
                   <li class="nav-item">
                     <a class="nav-link text-light" aria-current="page" href="{{route('usuario')}}">Usuarios</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-light" aria-current="page" href="{{route('pedidos')}}">Pedidos</a>
+                  </li>
                   @endif       
                   @if (Route::has('login'))    
                       @auth
