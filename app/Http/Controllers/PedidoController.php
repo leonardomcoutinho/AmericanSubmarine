@@ -6,11 +6,11 @@ use App\Models\Fpagamento;
 use App\Models\ItensPedido;
 use App\Models\Pedido;
 use App\Models\Product;
-use App\Models\User;
 use App\Services\VendaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use DefStudio\Telegraph\Models\TelegraphChat;
 
 
 class PedidoController extends Controller
@@ -26,6 +26,8 @@ class PedidoController extends Controller
             $request->session()->forget('cart');
             $pedido->update();            
         }
+        
+        
         return redirect()->route('show', $pedido->id);
     }     
     public function show($id)
@@ -48,6 +50,17 @@ class PedidoController extends Controller
         $pedido = Pedido::findOrFail($id);
         $pedido->status = "APROVADO";
         $pedido->update();
+        $chat = TelegraphChat::find(1);
+            $chat->html('Novo Pedido' . 
+            "\nPedido $pedido->id - $pedido->status" . 
+            "\nData do Pedidio: $pedido->datapedido" .
+            "\nCliente: ". Auth::user()->name .
+            "\nEndereço: " . Auth::user()->logradouro. ", " 
+            . Auth::user()->numero. ", "
+            . Auth::user()->complemento. ", "
+            . Auth::user()->bairro. ", "
+            . Auth::user()->cidade. "/"
+            . Auth::user()->estado)->send();
         return redirect()->route('meu_pedido', $pedido->id)->with('success',"Pedido $pedido->id finalizado com sucess!");
     }
     public function pagamento($id, Request $request)
@@ -61,6 +74,17 @@ class PedidoController extends Controller
         if ($status == "approved") {            
             $pedido->status = "APROVADO";
             $pedido->update();
+            $chat = TelegraphChat::find(1);
+            $chat->html('Novo Pedido' . 
+            "\nPedido $pedido->id - $pedido->status" . 
+            "\nData do Pedidio: $pedido->datapedido" .
+            "\nCliente: ". Auth::user()->name .
+            "\nEndereço: " . Auth::user()->logradouro. ", " 
+            . Auth::user()->numero. ", "
+            . Auth::user()->complemento. ", "
+            . Auth::user()->bairro. ", "
+            . Auth::user()->cidade. "/"
+            . Auth::user()->estado)->send();
             return redirect()->route('meu_pedido', $pedido->id)->with('success',"Pedido $pedido->id finalizado com sucess!");
         }
 
