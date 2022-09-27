@@ -1,32 +1,45 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid ">
-          <a class="navbar-brand" href="{{route('home')}}"><img src="/img/logo.png" alt="" width="200px"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid d-flex flex-column ">            
+                <a class="navbar-brand" href="{{route('home')}}"><img src="/img/logo.png" alt="" width="200px"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto my-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{route('home')}}">Inicio</a>
+                      <a class="nav-link text-light" aria-current="page" href="{{route('home')}}">Inicio</a>
                     </li>
-                    <x-jet-nav-link class="ml-2" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                @if (Auth::user()->admin)
-                    <x-jet-nav-link class="ml-2" href="{{ route('produto') }}">
-                        {{ __('Produtos') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link class="ml-2" href="{{ route('categoria') }}">
-                        {{ __('Categorias') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link class="ml-2" href="{{ route('usuario') }}">
-                        {{ __('Usuarios') }}
-                    </x-jet-nav-link>
-                @endif                       
-            </ul>                           
-            
-          </div>
+                    @if (Auth::user() && Auth::user()->admin)
+                    <li class="nav-item">
+                      <a class="nav-link text-light" aria-current="page" href="{{route('produto')}}">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-light" aria-current="page" href="{{route('categoria')}}">Categorias</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-light" aria-current="page" href="{{route('usuario')}}">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-light" aria-current="page" href="{{route('pedidos')}}">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-light" aria-current="page" href="{{route('fpagamento')}}">Forma de Pagamento</a>
+                    </li>
+                    @endif       
+                    @if (Route::has('login'))    
+                        @auth
+                          <a href="{{ route('login') }}" class="btn btn-outline-info mx-2">Profile</a>                      
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-outline-info mx-2">Entrar</a>
+  
+                            @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="btn btn-outline-info mx-2">Cadastrar</a>
+                            @endif
+                        @endauth    
+                    @endif
+                  </ul>
+                </div>              
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">            
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -227,7 +240,5 @@
         </div>            
       </nav>          
 </header>
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    
-</nav>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>

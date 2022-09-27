@@ -34,7 +34,7 @@
                     <p class="card-text m-1">{{$product->description}}</p>                    
                 </div> 
                 <div class="m-2 d-flex justify-content-between align-items-center border-top">
-                    <span class="text-dark" >R$: {{$product->price}}</span>
+                    <h5 class="text-dark" >R$: {{$product->price}}</h5>
                     <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
                 </div>       
             </div>
@@ -50,7 +50,7 @@
                     <p class="card-text m-1">{{$product->description}}</p>                    
                 </div> 
                 <div class="m-2 d-flex justify-content-between align-items-center border-top">
-                    <span class="text-dark" >R$: {{$product->price}}</span>
+                    <h5 class="text-dark" >R$: {{$product->price}}</h5>
                     <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
                 </div>       
             </div>
@@ -66,7 +66,7 @@
                     <p class="card-text m-1">{{$product->description}}</p>                    
                 </div> 
                 <div class="m-2 d-flex justify-content-between align-items-center border-top">
-                    <span class="text-dark" >R$: {{$product->price}}</span>
+                    <h5 class="text-dark" >R$: {{$product->price}}</h5>
                     <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
                 </div>       
             </div>
@@ -76,47 +76,39 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content bg-light">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Carrinho</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @if (session('cart'))                    
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col-3">#</th>
-                            <th scope="col-3">Produto</th>
-                            <th scope="col-3">Valor</th>                            
-                            <th scope="col-3">Excluir item</th>                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $total = 0;
-                            @endphp
-                            @foreach ($cart as $indece => $cc)
-                          <tr>                            
-                            <td><img src="{{$cc->image}}" alt="" width="30px"></td>
-                            <td>{{$cc->title}}</td>
-                            <td>{{$cc->price}}</td>
-                            <td><a href="{{route('cart_delete' , ['indece' => $indece]) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a></td>
-                          </tr> 
-                            @php
+                @if (session('cart')) 
+                    @php
+                        $total = 0;
+                    @endphp               
+                    @foreach ($cart as $indece => $cc)
+                        <div class="card-cart d-flex align-items-center border my-3 rounded">
+                            <div class="card-cart-img">
+                                <img src="{{$cc->image}}" alt="">
+                            </div>
+                            <div class="card-cart-body mx-2 my-2 pe-2 border-end">
+                                <div class="title-card-cart">
+                                    <h5>{{$cc->title}}</h5>
+                                </div>
+                                <div class="description-card-cart text-muted">
+                                    {{$cc->description}}
+                                </div>
+                            </div>
+                            <div class="card-cart-btn text-end">
+                                <a href="{{route('cart_delete' , ['indece' => $indece]) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                            </div>
+                        </div>
+                        @php
                                 $total += $cc->price;
                                 $total = number_format($total, 2, '.', '.');
-                            @endphp
-                          @endforeach                         
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5">
-                                    <strong>Total: R$ {{$total}}</strong> 
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>                    
+                        @endphp
+                    @endforeach 
+                    <div class="py-2"><strong>Total: R${{$total}}</strong></div>                   
                 @else                    
                     <div>Nenhum item no carrinho</div>
                 @endif
@@ -128,7 +120,6 @@
                 Confirme o endereço
             </button>
             @endif
-                      
             </div>
         </div>
         </div>
@@ -136,7 +127,7 @@
     <!-- Modal 2 -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content bg-light">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Endereço para entrega</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -163,7 +154,6 @@
                             <td>{{Auth::user()->cidade}}/{{Auth::user()->estado}}</td>                        
                             <td><a href="/endereco/edit/{{Auth::user()->id}}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a></th> 
                         @endif                        
-                                              
                       </tr>                                                  
                     </tbody>                    
                 </table>
@@ -173,8 +163,6 @@
             <button type="button" class="btn btn-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#exampleModal3">
                 Escolha a forma de pagamento
             </button>  
-            
-            
             </div>
         </div>
         </div>
@@ -182,25 +170,25 @@
     <!-- Modal 3 -->
     <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content bg-light">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Forma de Pagamento</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">               
-                <form action="{{route('pagar')}}" method="POST" class="d-flex flex-column">
+                <form action="{{route('pagar')}}" method="POST" class="">
                     @csrf
                     <select class="form-select" name="fpagamento" aria-label="Default select example">                        
                         @foreach ($fpagamento as $f)
                         <option value="{{$f->id}}">{{$f->fpagamento}}</option>                
                         @endforeach
-                    </select>                    
-                    <button type="submit" class="my-3 btn btn-success">Finalizar pedido</button>               
+                    </select>
+                    <div class="w-100 border-top mt-3 p-1 text-end">
+                        <button type="submit" class="my-3 btn btn-success text-end">Finalizar pedido</button>
+                    </div>                  
                 </form>                   
             </div>            
         </div>
         </div>
     </div>
-    
-
 @endsection       

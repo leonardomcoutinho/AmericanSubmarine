@@ -24,8 +24,11 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto my-2 mb-lg-0">
-                  <li class="nav-item">
+                  <li class="nav-item text-center">
                     <a class="nav-link text-light" aria-current="page" href="{{route('home')}}">Inicio</a>
+                  </li>
+                  <li class="nav-item text-center">
+                    <a class="nav-link text-light" aria-current="page" href="{{route('home')}}">Contato</a>
                   </li>
                   @if (Auth::user() && Auth::user()->admin)
                   <li class="nav-item">
@@ -43,18 +46,25 @@
                   <li class="nav-item">
                     <a class="nav-link text-light" aria-current="page" href="{{route('fpagamento')}}">Forma de Pagamento</a>
                   </li>
-                  @endif       
-                  @if (Route::has('login'))    
-                      @auth
-                        <a href="{{ route('login') }}" class="btn btn-outline-info mx-2">Profile</a>                      
-                          @else
-                              <a href="{{ route('login') }}" class="btn btn-outline-info mx-2">Entrar</a>
-
-                          @if (Route::has('register'))
-                                  <a href="{{ route('register') }}" class="btn btn-outline-info mx-2">Cadastrar</a>
-                          @endif
-                      @endauth    
-                  @endif
+                  @endif   
+                  <div class="d-flex position-absolute top-0 end-0 align-items-center bg-dark rounded px-2">    
+                    @if (Route::has('login'))    
+                        @auth
+                          <h6 class="text-light">Olá, {{Auth::user()->name}}</h6>
+                          <a href="{{ route('profile.show') }}" class="btn btn-outline-info m-2">Profile</a>
+                          <a href="{{ route('endereco') }}" class="btn btn-outline-info m-2"><i class="bi bi-pencil me-2"></i>Endereço</a>
+                          <form method="POST" action="{{ route('logout') }}" x-data>
+                            @csrf
+                            <button type="submit" class="btn btn-outline-info m-2">Sair</button>                          
+                        </form>                     
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-outline-info m-2">Entrar</a>
+                            @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="btn btn-outline-info m-2">Cadastrar</a>
+                            @endif
+                        @endauth    
+                    @endif
+                  </div>
                 </ul>
               </div>
             </div>            

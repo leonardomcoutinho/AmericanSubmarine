@@ -74,8 +74,6 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-
-
         $users = User::all();
         return view('dashboard', ['users' => $users]);
     })->name('dashboard');

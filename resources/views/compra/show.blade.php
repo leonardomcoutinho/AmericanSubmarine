@@ -82,7 +82,7 @@ $preference->save();
             <div class="my-2 py-2 border-top border-bottom">                
                 <strong>Total: R$ {{$total}}</strong>                     
             </div>
-                @if ($pedido->fpagamento_id != 4 && $pedido->fpagamento_id != 3)
+                @if ($pedido->fpagamento_id != 2 && $pedido->fpagamento_id != 4)
                     <form action="{{route("pagdinheiro", $pedido->id)}}" method="POST">
                         @csrf
                         <button class="btn btn-success">Finalizar</button>
@@ -95,7 +95,7 @@ $preference->save();
 
 {{-- SDK MercadoPago.js V2 --}}
 
-@if ($pedido->fpagamento_id == 4 || $pedido->fpagamento_id == 3)
+@if ($pedido->fpagamento_id == 2 || $pedido->fpagamento_id == 4)
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <script>
 const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {

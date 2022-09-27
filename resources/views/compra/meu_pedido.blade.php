@@ -22,30 +22,13 @@
                             </li>
                         </ul>
                         @endforeach
-                </div>
-                <div class="delivery border-top border-bottom">
-                    <h6>Entrega:</h6>
-                    <ul>
-                        <li>Delivery</li>
-                        <li>Retirar na loja</li>                    
-                    </ul>
-                </div>
+                </div>                
                 <div class="pagamento border-top border-bottom">
                     <h6>Forma de pagamento:</h6>
                     <ul>
                         <li>{{$pedido->fpagamento->fpagamento}}</li>                        
                     </ul>
-                </div>
-                <div class="recibemento border-top border-bottom">
-                    <h6>Forma de recebimento:</h6>
-                    <ul>
-                        @if ($pedido->fpagamento->id != 4 || $pedido->fpagamento->id != 3 )
-                            <li>Na hora da entrega</li>
-                        @else
-                            <li>Online</li>
-                        @endif                          
-                    </ul>
-                </div>
+                </div>                
             <a href="{{route('home')}}" class="btn btn-primary mt-3">Voltar para tela inicial</a>
             </div>
         </div>
