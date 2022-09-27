@@ -18,10 +18,12 @@ return new class extends Migration
             $table->datetime("datapedido");
             $table->string("status");
             $table->integer("user_id")->unsigned();
+            $table->integer("fpagamento_id")->unsigned();            
 
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("fpagamento_id")->references("id")->on("fpagamentos")->onDelete("cascade");
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Fpagamento;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -20,11 +21,12 @@ class HomeController extends Controller
             $products = Product::all();
         }
         
-            $cart = session('cart', []);
+        $cart = session('cart', []);
+        $fpagamento = Fpagamento::all();
         
         
         
-        return view('home', ['products' => $products, 'search' => $search, 'cart'=>$cart]);
+        return view('home', ['products' => $products, 'search' => $search, 'cart'=>$cart, 'fpagamento' => $fpagamento]);
     }
       
 }

@@ -35,16 +35,17 @@
             <div class="pagamento border-top border-bottom">
                 <h6>Forma de pagamento:</h6>
                 <ul>
-                    <li>Dinheiro</li>
-                    <li>Cartão Debito</li>
-                    <li>Cartão Credito</li>
+                    <li>{{$pedido->fpagamento->fpagamento}}</li>                    
                 </ul>
             </div>
             <div class="recibemento border-top border-bottom">
                 <h6>Forma de recebimento:</h6>
                 <ul>
-                    <li>Online</li>
-                    <li>Na hora da entrega</li>                    
+                    @if ($pedido->fpagamento->id != 4 || $pedido->fpagamento->id != 3 )
+                            <li>Na hora da entrega</li>
+                        @else
+                            <li>Online</li>
+                        @endif                    
                 </ul>
             </div>
           <a href="{{route('pedidos')}}" class="btn btn-primary mt-3">Voltar</a>

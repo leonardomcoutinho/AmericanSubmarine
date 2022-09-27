@@ -12,6 +12,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control rounded-start" name="category" placeholder="Criar nova categoria">
                     <button class="input-group-text btn btn-outline-success" id="category">Criar</button>
+                    
                   </div>                                   
             </form>
         </div>

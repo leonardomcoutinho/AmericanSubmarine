@@ -18,8 +18,6 @@ class AddressController extends Controller
 
     }
     public function update(Request $request){
-        
-        
             $request->validate([
                 'logradouro'=>'required',
                 'cidade'=>'required',
@@ -27,7 +25,7 @@ class AddressController extends Controller
             ]);
             User::findOrFail($request->id)->update($request->all());
 
-        return redirect()->route('endereco')->with('success', 'Endereço editado com sucesso!');      
+        return redirect()->route('Home')->with('success', 'Endereço editado com sucesso!');      
         
     }
 }

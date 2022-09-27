@@ -7,7 +7,7 @@
         <div class="card card-pedidos my-3 d-flex">
             <div class="card-header text-center
             @php
-                if ($p->status == "PEN") {
+                if ($p->status == "PENDENTE") {
                     echo "bg-warning bg-opacity-25";
                 }else if($p->status == "APROVADO"){
                     echo "bg-success bg-opacity-25";

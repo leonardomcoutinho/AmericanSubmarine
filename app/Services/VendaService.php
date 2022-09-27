@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Fpagamento;
 use App\Models\ItensPedido;
 use App\Models\Pedido;
 use Illuminate\Support\Facades\Log;
@@ -20,9 +21,9 @@ class VendaService{
             $pedido = new Pedido;
             
             $pedido->datapedido = $dtHoje->format("Y-m-d H:i:s");
-            $pedido->status = "PEN";
+            $pedido->status = "PENDENTE";
             $pedido->user_id = $user->id;
-            
+            $pedido->fpagamento_id = 1;            
             $pedido->save();
            
             foreach($prods as $p){
@@ -34,8 +35,7 @@ class VendaService{
                 $itens->pedido_id = $pedido->id;                
                 $itens->save();                            
             }
-            DB::commit();
-            
+            DB::commit();            
             return [
                 'status' =>'success',
                 'message' => 'Venda finalizada com sucesso!', 

@@ -2,7 +2,7 @@
 @section('title', 'American Submarine')
 @section('content')
     <div class="container my-3">
-        <h3 class="text-center w-100">Pedido: {{$pedido->id}} - Status: {{$pedido->status}}</h3>
+        <h3 class="text-center w-100">Pedido: {{$pedido->id}} - Status: {{$pedido->status}}</h3>        
         <div class="card ">        
             <div class="card-body">
             <h5 class="card-title"><i class="bi bi-person-fill"></i> - {{$pedido->user->name}}</h5>
@@ -33,20 +33,46 @@
                 <div class="pagamento border-top border-bottom">
                     <h6>Forma de pagamento:</h6>
                     <ul>
-                        <li>Dinheiro</li>
-                        <li>Cartão Debito</li>
-                        <li>Cartão Credito</li>
+                        <li>{{$pedido->fpagamento->fpagamento}}</li>                        
                     </ul>
                 </div>
                 <div class="recibemento border-top border-bottom">
                     <h6>Forma de recebimento:</h6>
                     <ul>
-                        <li>Online</li>
-                        <li>Na hora da entrega</li>                    
+                        @if ($pedido->fpagamento->id != 4 || $pedido->fpagamento->id != 3 )
+                            <li>Na hora da entrega</li>
+                        @else
+                            <li>Online</li>
+                        @endif                          
                     </ul>
                 </div>
             <a href="{{route('home')}}" class="btn btn-primary mt-3">Voltar para tela inicial</a>
             </div>
         </div>
     </div>
+    {{-- MODAL --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Forma de Pagamento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">               
+                <div class="col-12">
+                    <div class="alert alert-success text-center">
+                        <div>PEDIDO FINALIZADO!</div>
+                        <div>Seu pedido será entregue de 40 a 60 minutos</div>
+                        <div>Para mais informações, entre em contato conosco via whatsapp -> <a href="https://wa.me/5564992750425" target="__blank" class="btn btn-success rounded-circle"><i class="bi bi-whatsapp"></i></a></div>
+                    </div>
+                </div>                 
+            </div>        
+        </div>
+        </div>
+    </div>    
+    <script>
+        $(document).ready(function(){
+                $("#exampleModal").modal('show');
+        });
+    </script>
 @endsection       

@@ -9,7 +9,9 @@
     <!-- CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Icons Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">   
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script> 
     <title>@yield('title')</title>
 </head>
 <body>
@@ -38,6 +40,9 @@
                   <li class="nav-item">
                     <a class="nav-link text-light" aria-current="page" href="{{route('pedidos')}}">Pedidos</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-light" aria-current="page" href="{{route('fpagamento')}}">Forma de Pagamento</a>
+                  </li>
                   @endif       
                   @if (Route::has('login'))    
                       @auth
@@ -56,7 +61,7 @@
           </nav>          
     </header>
     <main class="pb-3">
-      <div class="">
+      <div class="container">
         <div class="row">
           @if (session('error'))
                 <div class="col-12">
@@ -89,7 +94,6 @@
         </div>
       </div>
     </footer>
-     
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

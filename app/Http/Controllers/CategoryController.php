@@ -20,7 +20,9 @@ class CategoryController extends Controller
     public function store(Request $request){
 
         $cat = new Category;
-
+        $request->validate([
+            'category'=>'required'            
+        ]);
         $cat->category = $request->category;
 
         $cat->save();
@@ -33,8 +35,10 @@ class CategoryController extends Controller
         return view('products.edit_categories', ['categories'=>$categories]);
     }
     public function update(Request $request){
-
-        $data = Category::findOrFail($request->id)->update($request->all());
+        $request->validate([
+            'category'=>'required'            
+        ]);
+        Category::findOrFail($request->id)->update($request->all());
 
         return redirect()->route('categoria')->with('success', 'Categoria editada com sucesso!');
     }

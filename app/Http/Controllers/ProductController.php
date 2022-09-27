@@ -31,6 +31,13 @@ class ProductController extends Controller {
     public function store(Request $request)
     {
         $products = new Product;
+        $request->validate([
+            'title'=>'required',
+            'price'=>'required',
+            'description'=>'required',
+            'category_id'=>'required',
+            'image'=>'required',
+        ]);
 
         $products->title = $request->title;
         $products->price = str_replace(",", ".", $request->price);
@@ -57,19 +64,24 @@ class ProductController extends Controller {
 
         return redirect()->route('produto')->with('success', 'Produto cadastrado com sucesso');
     }
-    public function editProduto($id)
-    {
+    public function editar($id){
         $product = Product::findOrFail($id);
         $cat = Category::all();
-        $categ = Category::findOrFail($id);
+        $categ = Category::find($product->category_id);
+        
 
-        return view('products.edit_produto', ['product' => $product, 'cat' => $cat, 'categ' => $categ]);
+        return view("products.edit_produto", ['product'=>$product, 'cat' =>$cat, 'categ' => $categ]);
     }
     public function update(Request $request)
     {
 
         $data = $request->all();
-
+        $request->validate([
+            'title'=>'required',
+            'price'=>'required',
+            'description'=>'required',
+            'category_id'=>'required',            
+        ]);
 
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {

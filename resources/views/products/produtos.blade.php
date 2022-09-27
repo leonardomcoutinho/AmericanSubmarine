@@ -33,9 +33,9 @@
                     <td>{{$p->description}}</td>
                     <td><img src="{{$p->image}}" alt="" width="30px"></td>
                     <td>{{$p->price}}</td>
-                    <td><a href="/editar/produto/{{$p->id}}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a></td>
+                    <td><a href="{{route('edit_prod', $p->id)}}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a></td>
                     <td>
-                        <form action="/deletar/produto/{{$p->id}}" method="POST">
+                        <form action="{{route('destroy_prod', $p->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
