@@ -1,18 +1,18 @@
 @extends('layouts.main')
 @section('title', 'American Submarine')
 @section('content')
-<div class="d-flex justify-content-between align-items-center m-3">
-        <div class="search">
+<div class="d-flex justify-content-between align-items-center m-3 flex-nowrap">
+        <div class="search ">
             <form class="w-100" role="search" action="/" method="GET">               
-            <div class="input-group">
-                <input type="search" class=" pesquisar rounded-start" name="search" placeholder="Pesquisar produto">
+            <div class="input-group flex-nowrap">
+                <input type="search" class="pesquisar rounded-start" name="search" placeholder="Pesquisar produto">
                 <button class="input-group-text btn btn-outline-dark" id="search"><i class="bi bi-search"></i></button>
             </div>                                 
             </form>      
         </div> 
         <div class="botao">
-        <button type="button" class="btn btn-outline-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="bi bi-cart3"></i>- Ver Carrinho
+        <button type="button" class="btn btn-outline-success d-flex align-items-center gap-2 flex-nowrap" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="bi bi-cart3"></i><div class="ver-carrinho"> Ver Carrinho</div>
             <div class="notification">         
                 @if (count($cart) > 0)
                 <div class="text-danger">
@@ -23,15 +23,15 @@
         </button>
         </div>
 </div>
-<div class="container d-flex flex-wrap gap-3">
-    <h3 class="w-100 border-bottom">Sanduiches</h3>    
+<div class="container container-home d-flex flex-wrap gap-3">
+    <h3 class="w-100 border-bottom">Sanduiches</h3>   
     @foreach ($products as $product)
         @if (isset($product->category_id) && $product->category_id == 1)
             <div class="card card-home d-flex flex-column bg-light">   
                 <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$product->title}}</h5>
-                    <p class="card-text m-1">{{$product->description}}</p>                    
+                    <p class="card-text">{{$product->description}}</p>                    
                 </div> 
                 <div class="m-2 d-flex justify-content-between align-items-center border-top">
                     <h5 class="text-dark" >R$: {{$product->price}}</h5>
@@ -47,7 +47,7 @@
                 <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$product->title}}</h5>
-                    <p class="card-text m-1">{{$product->description}}</p>                    
+                    <p class="card-text">{{$product->description}}</p>                    
                 </div> 
                 <div class="m-2 d-flex justify-content-between align-items-center border-top">
                     <h5 class="text-dark" >R$: {{$product->price}}</h5>
@@ -63,7 +63,7 @@
                 <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$product->title}}</h5>
-                    <p class="card-text m-1">{{$product->description}}</p>                    
+                    <p class="card-text">{{$product->description}}</p>                    
                 </div> 
                 <div class="m-2 d-flex justify-content-between align-items-center border-top">
                     <h5 class="text-dark" >R$: {{$product->price}}</h5>
@@ -99,7 +99,7 @@
                                     {{$cc->description}}
                                 </div>
                             </div>
-                            <div class="card-cart-btn text-end">
+                            <div class="card-cart-btn text-center mx-2">
                                 <a href="{{route('cart_delete' , ['indece' => $indece]) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                             </div>
                         </div>
@@ -132,31 +132,30 @@
             <h5 class="modal-title" id="exampleModalLabel">Endereço para entrega</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">                
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Logradouro</th>
-                        <th scope="col">Numero</th>
-                        <th scope="col">Complemento</th>                            
-                        <th scope="col">Bairro</th>                            
-                        <th scope="col">Cidade</th>                           
-                        <th scope="col">Editar</th>                           
-                      </tr>
-                    </thead>
-                    <tbody>                        
-                      <tr> 
-                        @if (Auth::user())
+            <div class="modal-body">               
+                <div class="card-cart d-flex align-items-center border my-3 rounded">
+                    <div class="card-cart-img text-center">
+                        <i class="bi bi-truck fs-1"></i>
+                    </div>
+                    <div class="card-cart-body mx-2 my-2 pe-2 border-end">
+                        <div class="title-card-cart">
+                            <h5>Endereço:</h5>
+                        </div>
+                        <div class="description-card-cart text-muted">
+                            @if (Auth::user())
                             <td>{{Auth::user()->logradouro}}</td>
                             <td>{{Auth::user()->numero}}</td>
                             <td>{{Auth::user()->complemento}}</td>
                             <td>{{Auth::user()->bairro}}</td>
                             <td>{{Auth::user()->cidade}}/{{Auth::user()->estado}}</td>                        
-                            <td><a href="/endereco/edit/{{Auth::user()->id}}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a></th> 
-                        @endif                        
-                      </tr>                                                  
-                    </tbody>                    
-                </table>
+                             
+                        @endif 
+                        </div>
+                    </div>
+                    <div class="card-cart-btn text-center mx-2">
+                        <a href="/endereco/edit/{{Auth::user()->id}}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Voltar</button>

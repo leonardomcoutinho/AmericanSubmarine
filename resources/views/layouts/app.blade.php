@@ -36,26 +36,26 @@
                       </button>
                       <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto my-2 mb-lg-0">
-                          <li class="nav-item">
+                          <li class="nav-item text-center">
                             <a class="nav-link text-light" aria-current="page" href="{{route('home')}}">Inicio</a>
                           </li>
-                          <li class="nav-item">
+                          <li class="nav-item text-center">
                             <a class="nav-link text-light" aria-current="page" href="{{route('home')}}">Contato</a>
                           </li>
                           @if (Auth::user() && Auth::user()->admin)
-                          <li class="nav-item">
+                          <li class="nav-item text-center">
                             <a class="nav-link text-light" aria-current="page" href="{{route('produto')}}">Produtos</a>
                           </li>
-                          <li class="nav-item">
+                          <li class="nav-item text-center">
                             <a class="nav-link text-light" aria-current="page" href="{{route('categoria')}}">Categorias</a>
                           </li>
-                          <li class="nav-item">
+                          <li class="nav-item text-center">
                             <a class="nav-link text-light" aria-current="page" href="{{route('usuario')}}">Usuarios</a>
                           </li>
-                          <li class="nav-item">
+                          <li class="nav-item text-center">
                             <a class="nav-link text-light" aria-current="page" href="{{route('pedidos')}}">Pedidos</a>
                           </li>
-                          <li class="nav-item">
+                          <li class="nav-item text-center">
                             <a class="nav-link text-light" aria-current="page" href="{{route('fpagamento')}}">Forma de Pagamento</a>
                           </li>
                           @endif       

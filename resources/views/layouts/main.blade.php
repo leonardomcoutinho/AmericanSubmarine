@@ -31,19 +31,19 @@
                     <a class="nav-link text-light" aria-current="page" href="{{route('home')}}">Contato</a>
                   </li>
                   @if (Auth::user() && Auth::user()->admin)
-                  <li class="nav-item">
+                  <li class="nav-item text-center">
                     <a class="nav-link text-light" aria-current="page" href="{{route('produto')}}">Produtos</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item text-center">
                     <a class="nav-link text-light" aria-current="page" href="{{route('categoria')}}">Categorias</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item text-center">
                     <a class="nav-link text-light" aria-current="page" href="{{route('usuario')}}">Usuarios</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item text-center">
                     <a class="nav-link text-light" aria-current="page" href="{{route('pedidos')}}">Pedidos</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item text-center">
                     <a class="nav-link text-light" aria-current="page" href="{{route('fpagamento')}}">Forma de Pagamento</a>
                   </li>
                   @endif   
@@ -52,7 +52,7 @@
                         @auth
                           <h6 class="text-light">Olá, {{Auth::user()->name}}</h6>
                           <a href="{{ route('profile.show') }}" class="btn btn-outline-info m-2">Profile</a>
-                          <a href="{{ route('endereco') }}" class="btn btn-outline-info m-2"><i class="bi bi-pencil me-2"></i>Endereço</a>
+                          <a href="{{ route('endereco') }}" class="btn btn-outline-info m-2"></i>Endereço</a>
                           <form method="POST" action="{{ route('logout') }}" x-data>
                             @csrf
                             <button type="submit" class="btn btn-outline-info m-2">Sair</button>                          
