@@ -60,7 +60,7 @@ $preference->save();
                             <td>{{$cc->valor}}</td>                                             
                         </tr>
                         @php
-                            $total = $cc->valor;
+                            $total += $cc->valor;
                             $total = number_format($total, 2, '.', '.');
                         @endphp
                     @endforeach
