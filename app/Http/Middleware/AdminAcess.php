@@ -20,6 +20,6 @@ class AdminAcess
         if(auth()->check() && auth()->user()->admin){
             return $next($request);
         }
-        dd('Acesso negado, vc não é administrador');
+        return redirect()->route('login');
     }
 }

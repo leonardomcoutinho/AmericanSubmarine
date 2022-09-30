@@ -19,6 +19,6 @@ class ClienteAcess
         if(auth()->check() && auth()->user()->cliente){
             return $next($request);
         }
-        dd('Acesso negado, vc não é cliente');
+        return redirect()->route('login');
     }
 }

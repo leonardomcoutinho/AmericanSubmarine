@@ -15,7 +15,7 @@
             <i class="bi bi-cart3"></i><div class="ver-carrinho"> Ver Carrinho</div>
             <div class="notification">         
                 @if (count($cart) > 0)
-                <div class="text-danger">
+                <div class="text-danger cart-notf">
                  {{count($cart)}}
                 </div>
                 @endif              
@@ -23,56 +23,88 @@
         </button>
         </div>
 </div>
-<div class="container container-home d-flex flex-wrap gap-3">
-    <h3 class="w-100 border-bottom">Sanduiches</h3>   
-    @foreach ($products as $product)
-        @if (isset($product->category_id) && $product->category_id == 1)
-            <div class="card card-home d-flex flex-column bg-light">   
-                <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{$product->title}}</h5>
-                    <p class="card-text">{{$product->description}}</p>                    
-                </div> 
-                <div class="m-2 d-flex justify-content-between align-items-center border-top">
-                    <h5 class="text-dark" >R$: {{$product->price}}</h5>
-                    <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
-                </div>       
+
+{{-- SANDUICHES --}}
+    <div class="container container-home d-flex flex-wrap gap-3">
+        <div class="dropdown w-100">
+            <div class="select p-2">
+                <h3 class="selected w-100 border-bottom">Sanduiches</h3>
+                <div class="caret"></div>
             </div>
-        @endif        
-    @endforeach
-    <h3 class="w-100 border-bottom">Bebidas</h3>
-    @foreach ($products as $product)
-        @if (isset($product->category_id) && $product->category_id == 2)
-            <div class="card card-home d-flex flex-column bg-light">   
-                <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{$product->title}}</h5>
-                    <p class="card-text">{{$product->description}}</p>                    
-                </div> 
-                <div class="m-2 d-flex justify-content-between align-items-center border-top">
-                    <h5 class="text-dark" >R$: {{$product->price}}</h5>
-                    <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
-                </div>       
+            <div class="menu">
+                @foreach ($products as $product)
+                @if (isset($product->category_id) && $product->category_id == 1)
+                    <div class="card card-home d-flex flex-column bg-light">   
+                        <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$product->title}}</h5>
+                            <p class="card-text">{{$product->description}}</p>                    
+                        </div> 
+                        <div class="m-2 d-flex justify-content-between align-items-center border-top">
+                            <h5 class="text-dark" >R$: {{$product->price}}</h5>
+                            <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success form mt-2">Adicionar</a>
+                        </div>       
+                    </div>
+                @endif        
+                 @endforeach
             </div>
-        @endif        
-    @endforeach
-    <h3 class="w-100 border-bottom">Outros</h3>
-    @foreach ($products as $product)
-        @if (isset($product->category_id) && $product->category_id > 2)
-            <div class="card card-home d-flex flex-column bg-light">   
-                <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{$product->title}}</h5>
-                    <p class="card-text">{{$product->description}}</p>                    
-                </div> 
-                <div class="m-2 d-flex justify-content-between align-items-center border-top">
-                    <h5 class="text-dark" >R$: {{$product->price}}</h5>
-                    <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
-                </div>       
-            </div>
-        @endif        
-    @endforeach
-</div>   
+        </div>            
+        
+{{-- BEBIDAS --}}
+
+    <div class="dropdown w-100">
+        <div class="select p-2">
+            <h3 class="selected w-100 border-bottom">Bebidas</h3>
+            <div class="caret"></div>
+        </div>
+        <div class="menu">
+            @foreach ($products as $product)
+                @if (isset($product->category_id) && $product->category_id == 2)
+                    <div class="card card-home d-flex flex-column bg-light">   
+                        <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$product->title}}</h5>
+                            <p class="card-text">{{$product->description}}</p>                    
+                        </div> 
+                        <div class="m-2 d-flex justify-content-between align-items-center border-top">
+                            <h5 class="text-dark" >R$: {{$product->price}}</h5>
+                            <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
+                        </div>       
+                    </div>
+                @endif        
+            @endforeach
+        </div>
+    </div>
+
+
+{{-- OUTROS --}}
+
+    <div class="dropdown w-100">
+        <div class="select p-2">
+            <h3 class="selected w-100 border-bottom">Outros</h3>
+            <div class="caret"></div>
+        </div>
+        <div class="menu">
+            @foreach ($products as $product)
+                @if (isset($product->category_id) && $product->category_id > 2)
+                    <div class="card card-home d-flex flex-column bg-light">   
+                        <img src="{{ $product->image }}" class="img-fluid card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$product->title}}</h5>
+                            <p class="card-text">{{$product->description}}</p>                    
+                        </div> 
+                        <div class="m-2 d-flex justify-content-between align-items-center border-top">
+                            <h5 class="text-dark" >R$: {{$product->price}}</h5>
+                            <a href="{{route('addcart', ['id' => $product->id])}}" class="btn btn-outline-success mt-2">Adicionar</a>
+                        </div>       
+                    </div>
+                @endif        
+            @endforeach
+        </div>
+    </div>
+</div>
+{{-- TESTE --}}
+   
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -147,13 +179,14 @@
                             <td>{{Auth::user()->numero}}</td>
                             <td>{{Auth::user()->complemento}}</td>
                             <td>{{Auth::user()->bairro}}</td>
-                            <td>{{Auth::user()->cidade}}/{{Auth::user()->estado}}</td>                        
-                             
-                        @endif 
+                            <td>{{Auth::user()->cidade}}/{{Auth::user()->estado}}</td>                       
+                            @endif 
                         </div>
                     </div>
                     <div class="card-cart-btn text-center mx-2">
+                        @if (Auth::user())
                         <a href="/endereco/edit/{{Auth::user()->id}}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+                        @endif 
                     </div>
                 </div>
             </div>
@@ -190,4 +223,6 @@
         </div>
         </div>
     </div>
+    
+<script src="/js/menu.js"></script> 
 @endsection       
